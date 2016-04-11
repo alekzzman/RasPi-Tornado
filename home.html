@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Main Page</title>
+</head>
+<style type="text/css">
+	td{
+		text-align: center;
+	}
+	.border{
+		border: 1px solid black;
+		padding: 5px;
+	}
+	.outline {
+		border: 1px solid black;
+		padding: 0 10px;
+	}
+	.on_button {
+		width: 50px;
+		height: 50px;
+		font-size: 9pt;
+		color: black;
+		background: white;
+	}
+	.off_button {
+		width: 50px;
+		height: 50px;
+		font-size: 9pt;
+		color: black;
+		background: white;
+	}
+</style>
+<body>
+	<script src="http://code.jquery.com/jquery-1.4.1.min.js"></script>
+	<script type="text/javascript">
+		b1_off();
+		b2_off();
+		monitor_off();
+
+		function more(){
+			$("#temperature").text(parseInt($("#temperature").text()) + 1)
+		}
+
+		function less(){
+			$("#temperature").text(parseInt($("#temperature").text()) - 1)
+		}
+
+		function temp_hum(){
+			$.ajax({
+					type: "GET",
+					url: '/temp_hum',
+					success: function (data) {
+						$("#temp").text(data.temp);
+						$("#hum").text(data.hum);
+					},
+					dataType: 'json',
+				});
+		}
+
+		var timerId = setInterval(temp_hum, 1000);
+
+		function b1_on(){
+			$("#b1_on").css("color", "white");
+			$("#b1_on").css("background", "green");
+			$("#b1_off").css("color", "black");
+			$("#b1_off").css("background", "white");
+
+			$.ajax({
+					type: "POST",
+					url: '/on',
+					data: {pin: 19},
+					success: function (data) {
+						alert("Включился 19");
+					},
+					dataType: 'json',
+				});
+		}
+
+		function b1_off(){
+			$("#b1_on").css("color", "black");
+			$("#b1_on").css("background", "white");
+			$("#b1_off").css("color", "white");
+			$("#b1_off").css("background", "red");
+
+			$.ajax({
+					type: "POST",
+					url: '/off',
+					data: {pin: 19},
+					success: function (data) {
+						alert("Выключился 19");
+					},
+					dataType: 'json',
+				});
+		}
+
+		function b2_on(){
+			$("#b2_on").css("color", "white");
+			$("#b2_on").css("background", "green");
+			$("#b2_off").css("color", "black");
+			$("#b2_off").css("background", "white");
+
+			$.ajax({
+					type: "POST",
+					url: '/on',
+					data: {pin: 26},
+					success: function (data) {
+						alert("Включился 26");
+					},
+					dataType: 'json',
+				});
+		}
+
+		function b2_off(){
+			$("#b2_on").css("color", "black");
+			$("#b2_on").css("background", "white");
+			$("#b2_off").css("color", "white");
+			$("#b2_off").css("background", "red");
+
+			$.ajax({
+					type: "POST",
+					url: '/off',
+					data: {pin: 26},
+					success: function (data) {
+						alert("Выключился 26");
+					},
+					dataType: 'json',
+				});
+		}
+
+		function b3_on(){
+			$("#b3_on").css("color", "white");
+			$("#b3_on").css("background", "green");
+			$("#b3_off").css("color", "black");
+			$("#b3_off").css("background", "white");
+
+                        $.ajax({
+					type: "POST",
+					url: '/on',
+					data: {pin: 20},
+					success: function (data) {
+						alert("Включился 20");
+					},
+					dataType: 'json',
+				});
+		}
+
+		function b3_off(){
+			$("#b3_on").css("color", "black");
+			$("#b3_on").css("background", "white");
+			$("#b3_off").css("color", "white");
+			$("#b3_off").css("background", "red");
+
+                        $.ajax({
+					type: "POST",
+					url: '/off',
+					data: {pin: 20},
+					success: function (data) {
+						alert("Выключился 20");
+					},
+					dataType: 'json',
+				});
+		}
+
+		function b4_on(){
+			$("#b4_on").css("color", "white");
+			$("#b4_on").css("background", "green");
+			$("#b4_off").css("color", "black");
+			$("#b4_off").css("background", "white");
+
+                        $.ajax({
+					type: "POST",
+					url: '/on',
+					data: {pin: 21},
+					success: function (data) {
+						alert("Включился 21");
+					},
+					dataType: 'json',
+				});
+		}
+
+		function b4_off(){
+			$("#b4_on").css("color", "black");
+			$("#b4_on").css("background", "white");
+			$("#b4_off").css("color", "white");
+			$("#b4_off").css("background", "red");
+
+                        $.ajax({
+					type: "POST",
+					url: '/off',
+					data: {pin: 21},
+					success: function (data) {
+						alert("Выключился 21");
+					},
+					dataType: 'json',
+				});
+		}
+
+		function camera_on(){
+			$("#camera_on").css("color", "white");
+			$("#camera_on").css("background", "green");
+			$("#camera_off").css("color", "black");
+			$("#camera_off").css("background", "white");
+
+			$.ajax({
+					type: "GET",
+					url: '/camera_on',
+					dataType: 'json',
+				});
+		}
+
+		function camera_off(){
+			$("#camera_on").css("color", "black");
+			$("#camera_on").css("background", "white");
+			$("#camera_off").css("color", "white");
+			$("#camera_off").css("background", "red");
+
+			$.ajax({
+					type: "GET",
+					url: '/camera_off',
+					dataType: 'json',
+				});
+		}
+
+		function monitor_off(){
+			$("#monitor_on").css("color", "black");
+			$("#monitor_on").css("background", "white");
+			$("#monitor_off").css("color", "white");
+			$("#monitor_off").css("background", "red");
+
+			clearInterval(timerMonitorId);
+
+			$("#moncon").text("Monitor off");
+		}
+
+		var timerMonitorId;
+		function monitor_on(){
+			$("#monitor_on").css("color", "white");
+			$("#monitor_on").css("background", "green");
+			$("#monitor_off").css("color", "black");
+			$("#monitor_off").css("background", "white");
+
+			timerMonitorId = setInterval(monitor, 1000);
+		}
+		
+		function monitor(){
+			$.ajax({
+					type: "GET",
+					url: '/monitor',
+					success: function (data) {
+						$("#moncon").text(data.info);
+					},
+					dataType: 'json',
+				});
+		}
+
+		function secure_off(){
+			$("#secure_on").css("color", "black");
+			$("#secure_on").css("background", "white");
+			$("#secure_off").css("color", "white");
+			$("#secure_off").css("background", "red");
+
+			clearInterval(timerSecureId);
+
+			$.ajax({
+					type: "GET",
+					url: '/secure_off',
+					success: function (data) {
+						$("#seccon").text(data.info);
+					},
+					dataType: 'json',
+				});
+		}
+
+		var timerMonitorId;
+		function secure_on(){
+			$("#secure_on").css("color", "white");
+			$("#secure_on").css("background", "green");
+			$("#secure_off").css("color", "black");
+			$("#secure_off").css("background", "white");
+
+			timerSecureId = setInterval(secure, 1000);
+		}
+		
+		function secure(){
+			$.ajax({
+					type: "GET",
+					url: '/secure_on',
+					success: function (data) {
+						$("#seccon").text(data.info);
+					},
+					dataType: 'json',
+				});
+		}
+
+	</script>
+	<table id="t2" border="1" width="100%" height="100%">
+		<tr>
+			<td>
+				<button id="home" onclick="home();">Home</button>
+			</td>
+			<td>
+				<table id="t1" width="100%">
+					<tr>
+						<td>
+							<p>Climate:</p>
+							<div class="outline">
+								<p>
+									<p>
+										Temp: 
+										<button id="temp">00.0C</button>
+									</p>
+									<p>
+										Hum:
+										<button id="hum">00.0%</button>
+									</p>
+								</p>
+							</div>
+						</td>
+						<td>
+							<p>Lights</p>
+							<div class="outline">
+								<p><button id="b1_on" class="on_button" onclick="b1_on();">On</button><button id="b2_on" class="on_button" onclick="b2_on();">On</button><button id="b3_on" class="on_button" onclick="b3_on();">On</button><button id="b4_on" class="on_button" onclick="b4_on();">On</button></p>
+								<p><button id="b1_off" class="off_button" onclick="b1_off();">Off</button><button id="b2_off" class="off_button" onclick="b2_off();">Off</button><button id="b3_off" class="off_button" onclick="b3_off();">Off</button><button id="b4_off" class="off_button" onclick="b4_off();">Off</button></p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p>Air Conditioner</p>
+							<div class="outline">
+								<p><button id="more" onclick = "more();">more</button></p> 
+								<h id="temperature">20</h> 
+								<p><button id="less" onclick = "less();">less</button></p>
+							</div>
+						</td>
+						<td>
+						<p>Camera <button class="on_button" id="camera_on" onclick="camera_on();">On</button>
+						<button class="off_button" id="camera_off" onclick="camera_off();">Off</button></p>
+							<div class="outline">
+								<iframe src="http://localhost:8888/html/" width="100%" height="500">
+								</iframe>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<button id="auto" onclick="auto();">Auto</button>
+			</td>
+			<td>
+				<table width="100%">
+					<tr>
+						<td>
+							<p>Climate Control</p>
+							<div class="outline">
+								<p>Cooling:<button id="cooling">On / Off</button></p> 
+								<p>Hearting:<button id="hearting">On / Off</button></p>
+							</div>
+						</td>
+						<td>
+							<p>Motion Control</p>
+							<div class="outline">
+								<p><button class="on_button" id="monitor_on" onclick="monitor_on();">On</button>
+								<button class="off_button" id="monitor_off" onclick="monitor_off();">Off</button></p>
+								<p><button id="moncon">No motions</button></p>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td id="secure">
+				<button id="secure" onclick="secure();">Secure</button>
+			</td>
+			<td>
+				<table width="100%">
+					<tr>
+						<td>
+							<p>Record:<p><button class="on_button" id="secure_on" onclick="secure_on();">On</button>
+								<button class="off_button" id="secure_off" onclick="secure_off();">Off</button></p>
+							</p>
+							<p><button id="seccon">No motions</button></p>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

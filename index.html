@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+</head>
+<style type="text/css">
+	.center {
+	width: 200px;
+	padding: 10px;
+	margin: auto;
+	vertical-align: middle;
+	background: #7CFC00;
+	}
+</style>
+<body>
+	<script src="http://code.jquery.com/jquery-1.4.1.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#signin").click(function () {
+				$.ajax({
+					type: "POST",
+					url: '/login',
+					data: {login: $("#login").val(), password: $("#password").val()},
+					success: function (data) {
+						if (data.error){
+							alert('Неверный логин или пароль!')
+						} else {
+							document.write(data.page);
+						}
+					},
+					dataType: 'json',
+				});
+			});
+		});
+	</script>
+	<div class="center">
+		<table>
+			<tr>
+				<td>
+					Логин: <input id="login">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Пароль: <input id="password">
+				</td>
+			</tr>
+			<td>
+				<button id="signin">
+					Login
+				</button>
+			</td>
+		</table>
+	</div>
+</body>
+</html>
